@@ -10,16 +10,16 @@ from stack import Stack
 def test_init():
     stack= Stack()
 
-    assert stack.top is None
+    assert stack._lst.head is None
 
 def test_push():
     stack= Stack()
     
     stack.push(0)
-    assert stack.top==0
+    assert stack._lst.head.datum==0
 
     stack.push('dookie')
-    assert stack.top=='dookie'
+    assert stack._lst.head.datum=='dookie'
 
 def test_pop():
     stack= Stack()
@@ -30,4 +30,4 @@ def test_pop():
     p= stack.pop()
 
     assert p== 'b'
-    assert stack.top== 'a'
+    assert stack._lst.head.datum== 'a'
