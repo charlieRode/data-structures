@@ -66,3 +66,15 @@ def test_size():
     tree.insert(-2)
     tree.insert(4)
     assert tree.size() == 6
+
+def test_depth():
+    tree = BST()
+    assert tree.depth() == 0
+    items = [0, -2, -1, -4, -3]
+    for item in items:
+        tree.insert(item)
+    assert tree.depth() == 4
+    items = [1, 2, 3, 4]
+    for item in items:
+        tree.insert(item)
+    assert tree.depth() == 5

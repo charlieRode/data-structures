@@ -57,3 +57,19 @@ class BST(object):
 
         traverse(self.root)
         return size['value']
+
+    def depth(self):
+        max_depth = {'value': 0}
+        depth = {'value': 0}
+
+        def traverse(root):
+            if root is not None:
+                depth['value'] += 1
+                traverse(root.lchild)
+                traverse(root.rchild)
+                if depth['value'] > max_depth['value']:
+                    max_depth['value'] = depth['value']
+                depth['value'] -= 1
+
+        traverse(self.root)
+        return max_depth['value']
