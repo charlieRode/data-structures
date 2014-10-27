@@ -39,3 +39,9 @@ class BST(object):
             else:
                 _parent.rchild = Node(data)
         return
+
+    def contains(self, data):
+        find = self._search(data)
+        if find[0] is None:
+            return False
+        return True

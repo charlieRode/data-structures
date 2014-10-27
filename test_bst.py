@@ -44,7 +44,6 @@ def test_search():
 
 
 def test_contains():
-    return
     tree = BST()
     tree.insert(0)
     tree.insert(1)
