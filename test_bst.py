@@ -7,16 +7,23 @@ def test_init():
     assert tree.root == None
 
 def test_insert():
-    return
     tree = BST()
     tree.insert(0)
-    assert tree.root.data == 0
-    tree.insert(1)
-    assert tree.root.data == 1
-    assert tree.root.lchild == None
-    assert tree.root.rchild.data == 1
+    tree.insert(-2)
+    tree.insert(2)
     tree.insert(-1)
-    assert tree.root.lchild.data == -1
+    tree.insert(3)
+    tree.insert(-3)
+    tree.insert(3)
+    tree.insert(1)
+
+    assert tree.root.data == 0
+    assert tree.root.lchild.data == -2
+    assert tree.root.lchild.lchild.data == -3
+    assert tree.root.lchild.rchild.data == -1
+    assert tree.root.rchild.data == 2
+    assert tree.root.rchild.rchild.data == 3
+    assert tree.root.rchild.lchild.data == 1
 
 def test_search():
     tree = BST()
