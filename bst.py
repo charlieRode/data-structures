@@ -73,3 +73,19 @@ class BST(object):
 
         traverse(self.root)
         return max_depth['value']
+
+    def balance(self):
+        """
+        I don't think this is what is being asked for, but
+        it does seem to be the literal intepretation of the
+        assignment.
+        """
+        if self.root is None:
+            return 0
+        l_subtree = BST()
+        l_subtree.root = self.root.lchild
+        r_subtree = BST()
+        r_subtree.root = self.root.rchild
+        l_depth = l_subtree.depth()
+        r_depth = r_subtree.depth()
+        return l_depth - r_depth

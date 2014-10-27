@@ -78,3 +78,15 @@ def test_depth():
     for item in items:
         tree.insert(item)
     assert tree.depth() == 5
+
+def test_balance():
+    tree = BST()
+    assert tree.balance() == 0
+    items = [0, -2, -1, -4, -3]
+    for item in items:
+        tree.insert(item)
+    assert tree.balance() == 3
+    items = [1, 2, 3, 4]
+    for item in items:
+        tree.insert(item)
+    assert tree.balance() == -1
