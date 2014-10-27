@@ -45,3 +45,15 @@ class BST(object):
         if find[0] is None:
             return False
         return True
+
+    def size(self):
+        size = {'value': 0}
+
+        def traverse(root):
+            if root is not None:
+                size['value'] += 1
+                traverse(root.lchild)
+                traverse(root.rchild)
+
+        traverse(self.root)
+        return size['value']

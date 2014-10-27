@@ -53,3 +53,16 @@ def test_contains():
     assert tree.contains(-1) == True
     assert tree.contains(0) == True
     assert tree.contains(4) == False
+
+def test_size():
+    tree = BST()
+    assert tree.size() == 0
+    tree.insert(0)
+    assert tree.size() == 1
+    tree.insert(2)
+    tree.insert(1)
+    assert tree.size() == 3
+    tree.insert(-1)
+    tree.insert(-2)
+    tree.insert(4)
+    assert tree.size() == 6
