@@ -90,3 +90,17 @@ def test_balance():
     for item in items:
         tree.insert(item)
     assert tree.balance() == -1
+
+def test_delete():
+    tree = BST()
+    for n in [0,2,-2,1,-1,3,-3]:
+        tree.insert(n)
+    for n in [-3, -2, -1, 0, 1, 2, 3]:
+        assert tree.contains(n)
+    tree.delete(-3)
+    assert tree.contains(-3) == False
+    tree.delete(-2)
+    assert tree.contains(-2) == False
+    for n in [-1, 0, 1, 2, 3]:
+        assert tree.contains(n)
+    assert tree.size() == 5

@@ -89,3 +89,32 @@ class BST(object):
         l_depth = l_subtree.depth()
         r_depth = r_subtree.depth()
         return l_depth - r_depth
+
+    def delete(self, data):
+        trace, _parent = self._search(data)
+        # Node to be deleted is not in tree
+        if trace is None:
+            raise IndexError("%s is not in the tree")
+            return
+        # Node to be deleted is a leaf node
+        if trace.lchild is None and trace.rchild is None:
+            if _parent.lchild == trace:
+                _parent.lchild = None
+            else:
+                _parent.rchild = None
+            return
+        # Node to be deleted has a single child, on the right
+        if trace.lchild is None:
+            if _parent.lchild == trace:
+                _parent.lchild = trace.rchild
+            else:
+                _parent.rchild = trace.rchild
+            return
+        # Node to be deleted has a single child, on the left
+        if trace.rchild is None:
+            if _parent.lchild == trace:
+                _parent.lchild = trace.lchild
+            else:
+                _parent.rchild = trace.lchild
+            return
+        # Node to be deleted has two children
