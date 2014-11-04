@@ -27,5 +27,16 @@ def test_add_edge():
 
 def test_delete_node():
     g = Graph()
-    for n in (1, 2, 3, 4, 5):
-        g.add_node(n)
+    for letter in ['a', 'b', 'c', 'd']:
+        g.add_node(letter)
+    g.add_edge('a', 'b')
+    g.add_edge('b', 'c')
+    g.add_edge('a', 'c')
+    g.add_edge('b', 'd')
+    g.delete('d')
+    for edge in g._edges:
+        assert 'd' not in edge
+    assert len(g._edges) == 3
+    g.delete('a')
+    assert len(g._edges) == 1
+    assert g._edges == {'b', 'c'}
