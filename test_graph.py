@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import pytest
-from graph1 import Edge, Graph
+from graph import Edge, Graph
 
 
 def test_init():
@@ -27,16 +27,23 @@ def test_add_edge():
 
 def test_delete_node():
     g = Graph()
+    try:
+        g.delete_node('a')
+    except IndexError:
+        assert True
+    else:
+        assert False
     for letter in ['a', 'b', 'c', 'd']:
         g.add_node(letter)
     g.add_edge('a', 'b')
     g.add_edge('b', 'c')
     g.add_edge('a', 'c')
     g.add_edge('b', 'd')
-    g.delete('d')
+    g.delete_node('d')
     for edge in g._edges:
-        assert 'd' not in edge
+        assert 'd' not in edge.connects
     assert len(g._edges) == 3
-    g.delete('a')
+    g.delete_node('a')
     assert len(g._edges) == 1
-    assert g._edges == {'b', 'c'}
+    for edge in g._edges:
+        assert edge.connects == {'b', 'c'}

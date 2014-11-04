@@ -29,3 +29,17 @@ class Graph(object):
         edge = Edge(data1, data2)
         self._edges.add(edge)
         return
+
+    def delete_node(self, data):
+        try:
+            self._nodes.pop()
+        except KeyError:
+            raise IndexError('graph is empty')
+        else:
+            # Must use temp set. Can't change set size during iteration
+            _temp = set()
+            for edge in self._edges:
+                if data not in edge.connects:
+                    _temp.add(edge)
+            self._edges = _temp
+        return
