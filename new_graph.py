@@ -63,10 +63,9 @@ class Graph(object):
     def delete_edge(self, data1, data2):
         edge = Edge(data1, data2)
         if edge in self._edges:
-            self.edges.remove(edge)
+            self._edges.remove(edge)
+        else:
+            raise IndexError(str(Edge(data1, data2)) + " does not exist")
 
     def delete_node(self, data):
-        try:
-            self._nodes.pop()
-        except KeyError:
-            raise IndexError('graph is empty')
+        pass

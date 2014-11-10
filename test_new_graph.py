@@ -24,6 +24,29 @@ def test_add_edge():
     assert len(g.nodes()) == 3
     assert {3, 2} in g.edges()
 
+def test_delete_edge():
+    g = Graph()
+    e1 = Edge('a', 'b')
+    e2 = Edge('b', 'c')
+    e3 = Edge('a', 'c')
+    edges = [e1, e2, e3]
+    g.add_edge('a', 'b')
+    g.add_edge('b', 'c')
+    g.add_edge('a', 'c')
+    for edge in edges:
+        assert edge in g._edges
+    g.delete_edge('b', 'c')
+    assert len(g._edges) == 2
+    assert e2 not in g._edges
+    assert e1 in g._edges and e3 in g._edges
+    try:
+        g.delete_edge(1, 2)
+    except IndexError:
+        assert True
+    else:
+        assert False
+    g.delete_edge('b', 'a')
+    assert len(g._edges) == 1
 
 def test_delete_node():
     g = Graph()
