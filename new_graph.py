@@ -53,6 +53,7 @@ class Graph(object):
         self._nodes.add(Node(data1))
         self._nodes.add(Node(data2))
         self._edges.add(Edge(data1, data2))
+        return
 
     def nodes(self):
         return [node.data for node in self._nodes]
@@ -66,6 +67,16 @@ class Graph(object):
             self._edges.remove(edge)
         else:
             raise IndexError(str(Edge(data1, data2)) + " does not exist")
+        return
 
     def delete_node(self, data):
-        pass
+        if Node(data) in self._nodes:
+            self._nodes.remove(Node(data))
+        else:
+            raise IndexError(str(Node(data)) + " does not exist")
+        temp = set()
+        for edge in self._edges:
+            if data not in edge.connects:
+                temp.add(edge)
+        self._edges = self._edges.intersection(temp)
+        return

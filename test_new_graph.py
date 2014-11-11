@@ -48,6 +48,7 @@ def test_delete_edge():
     g.delete_edge('b', 'a')
     assert len(g._edges) == 1
 
+
 def test_delete_node():
     g = Graph()
     try:
