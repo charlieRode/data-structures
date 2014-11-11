@@ -99,3 +99,17 @@ def test_neighbors():
         assert True
     else:
         assert False
+
+
+def test_adjacent():
+    g = Graph()
+    g.add_edge('a', 'b')
+    g.add_edge('a', 'c')
+    try:
+        g.adjacent('a', 'e')
+    except IndexError:
+        assert True
+    else:
+        assert False
+    assert g.adjacent('a', 'b') is True
+    assert g.adjacent('c', 'b') is False

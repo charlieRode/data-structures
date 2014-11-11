@@ -96,4 +96,9 @@ class Graph(object):
                     neighbors.append(elem)
         return neighbors
 
-
+    def adjacent(self, data1, data2):
+        if self.has_node(data1) is False or self.has_node(data2) is False:
+            raise IndexError("one or both of the supplied nodes does not exist")
+            return
+        else:
+            return Edge(data1, data2) in self._edges
