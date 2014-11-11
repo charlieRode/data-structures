@@ -71,3 +71,14 @@ def test_delete_node():
     assert len(g._edges) == 1
     for edge in g._edges:
         assert edge.connects == {'b', 'c'}
+
+
+def test_has_node():
+    g = Graph()
+    assert g.has_node('a') is False
+    g.add_node('a')
+    assert g.has_node('a') is True
+    g.add_edge('b', 'c')
+    assert g.has_node('b') is True
+    g.delete_edge('b', 'c')
+    assert g.has_node('c') is True

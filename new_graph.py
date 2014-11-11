@@ -80,3 +80,7 @@ class Graph(object):
                 temp.add(edge)
         self._edges = self._edges.intersection(temp)
         return
+
+    def has_node(self, data):
+        return data in self.nodes()
+
