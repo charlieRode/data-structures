@@ -24,6 +24,7 @@ def test_add_edge():
     assert len(g.nodes()) == 3
     assert {3, 2} in g.edges()
 
+
 def test_delete_edge():
     g = Graph()
     e1 = Edge('a', 'b')
@@ -82,3 +83,19 @@ def test_has_node():
     assert g.has_node('b') is True
     g.delete_edge('b', 'c')
     assert g.has_node('c') is True
+
+
+def test_neighbors():
+    g = Graph()
+    g.add_edge('a', 'b')
+    g.add_edge('b', 'c')
+    g.add_edge('a', 'c')
+    neighbors = g.neighbors('a')
+    assert 'b' in neighbors
+    assert 'c' in neighbors
+    try:
+        g.neighbors('q')
+    except IndexError:
+        assert True
+    else:
+        assert False

@@ -84,3 +84,16 @@ class Graph(object):
     def has_node(self, data):
         return data in self.nodes()
 
+    def neighbors(self, data):
+        if not self.has_node(data):
+            raise IndexError("{data} not in graph".format(data=data))
+            return
+        tups = [edge.connects for edge in self._edges if data in edge.connects]
+        neighbors = []
+        for tup in tups:
+            for elem in tup:
+                if elem != data:
+                    neighbors.append(elem)
+        return neighbors
+
+
