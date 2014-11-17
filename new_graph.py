@@ -138,32 +138,42 @@ class Graph(object):
 
         _traverse(self._get_node(start))
         for node in self._nodes:
-            node.visited = False
+            node.visited = None
         return path
 
-        def bfs(self, start):
-            """Perfomes a breadth-first-traversal, starting at Node(start)"""
-            from queue import Queue
-            if self.has_node(start) is False:
-                raise IndexError("{start} not in graph".format(start=start))
-                return
-            for node in self._nodes:
-                # Assign each  node in the graph the attribute 'visited'
-                node.visited = False
-                # Full traversal path to be returned by the method
-            path = []
-            q = Queue()
+    def bfs(self, start):
+        """Perfomes a breadth-first-traversal, starting at Node(start)"""
+        from queue import Queue
+        if self.has_node(start) is False:
+            raise IndexError("{start} not in graph".format(start=start))
+            return
+        for node in self._nodes:
+            # Assign each  node in the graph the attribute 'visited'
+            node.visited = False
+            # Full traversal path to be returned by the method
+        path = []
+        q = Queue()
+        current = self._get_node(start)
+        current.visited = True
+        path.append(current.data)
+        for node in self._neighbors(current.data):
+            if node.visited is False:
+                node.visited = True
+                path.append(node.data)
+                q.enqueue(node)
+        while True:
+            for node in self._neighbors(current.data):
+                if node.visited is False:
+                    node.visited = True
+                    path.append(node.data)
+                    q.enqueue(node)
+            try:
+                current = q.dequeue()
+            except ValueError:
+                break
 
+        for node in self._nodes:
+            node.visited = None
+        return path
 
-            def _get_node(data):
-                for node in self._nodes:
-                    if data == node.data:
-                        return node
-
-
-
-
-            _traverse(_get_node(start))
-            for node in self._nodes:
-                return path
 

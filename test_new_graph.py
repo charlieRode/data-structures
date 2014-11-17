@@ -139,3 +139,17 @@ def test_dfs():
         assert True
     else:
         assert False
+
+
+def test_bfs():
+    g = Graph()
+    g.add_edge('a', 'b')
+    g.add_edge('a', 'd')
+    g.add_edge('a', 'g')
+    g.add_edge('b', 'e')
+    g.add_edge('e', 'g')
+    g.add_edge('b', 'f')
+    g.add_edge('f', 'd')
+    g.add_edge('f', 'c')
+    g.add_edge('c', 'h')
+    assert g.bfs('a') == ['a', 'b', 'd', 'g', 'e', 'f', 'c', 'h']
