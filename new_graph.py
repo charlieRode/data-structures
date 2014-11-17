@@ -176,4 +176,17 @@ class Graph(object):
             node.visited = None
         return path
 
+if __name__ == '__main__':
+    g = Graph()
+    g.add_edge('a', 'b')
+    g.add_edge('a', 'd')
+    g.add_edge('a', 'g')
+    g.add_edge('b', 'e')
+    g.add_edge('e', 'g')
+    g.add_edge('b', 'f')
+    g.add_edge('f', 'd')
+    g.add_edge('f', 'c')
+    g.add_edge('c', 'h')
 
+    print g.dfs('a')
+    print g.bfs('a')
