@@ -113,3 +113,29 @@ def test_adjacent():
         assert False
     assert g.adjacent('a', 'b') is True
     assert g.adjacent('c', 'b') is False
+
+
+def test_dfs():
+    g = Graph()
+    g.add_edge('a', 'b')
+    g.add_edge('b', 'c')
+    g.add_edge('c', 'd')
+    g.add_edge('d', 'e')
+    assert g.dfs('a') == ['a', 'b', 'c', 'd', 'e']
+    g.add_edge('a', 'e')
+    assert g.dfs('a') == ['a', 'b', 'c', 'd', 'e']
+
+    g = Graph()
+    g.add_edge('a', 'b')
+    g.add_edge('a', 'c')
+    g.add_edge('a', 'd')
+    assert len(g.dfs('a')) == 4
+    for item in ['a', 'b', 'c', 'd']:
+        assert item in g.dfs('a')
+    assert g.dfs('b')[:2] == ['b', 'a']
+    try:
+        g.dfs('h')
+    except IndexError:
+        assert True
+    else:
+        assert False
