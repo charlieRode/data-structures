@@ -23,16 +23,17 @@ class Edge(object):
     # I'm storing the edge as a set of two data points,
     # rather than two Node objects for simplicity's sake.
     # May need to change this later.
-    def __init__(self, data1, data2):
+    def __init__(self, data1, data2, weight=1):
         self._d1 = data1
         self._d2 = data2
         self.connects = set((data1, data2))
+        self.weight = weight
 
     def __repr__(self):
-        return "Edge({data1}, {data2})".format(data1=self._d1, data2=self._d2)
+        return "Edge({data1}, {data2}, {weight})".format(data1=self._d1, data2=self._d2, weight=self.weight)
 
     def __str__(self):
-        return str(self.connects)
+        return str(self.connects) + ", " + str(self.weight)
 
     def __eq__(self, other):
         return self.connects == other.connects
@@ -50,20 +51,23 @@ class Graph(object):
         self._nodes.add(Node(data))
         return
 
-    def add_edge(self, data1, data2):
+    def add_edge(self, data1, data2, weight=1):
         self._nodes.add(Node(data1))
         self._nodes.add(Node(data2))
-        self._edges.add(Edge(data1, data2))
+        self._edges.add(Edge(data1, data2, weight))
         return
 
     def nodes(self):
         return [node.data for node in self._nodes]
 
     def edges(self):
-        return [edge.connects for edge in self._edges]
+        return [(edge.connects, edge.weight) for edge in self._edges]
 
-    def delete_edge(self, data1, data2):
-        edge = Edge(data1, data2)
+    def del_edge(self, data1, data2):
+        for edge in self._edges:
+            if edge._d1 == data1 and edge._d2 == data2:
+                edge.weight = None
+        edge = Edge(data1, data2, None)
         if edge in self._edges:
             self._edges.remove(edge)
         else:
@@ -111,7 +115,12 @@ class Graph(object):
             raise IndexError("one or both of the supplied nodes does not exist")
             return
         else:
-            return Edge(data1, data2) in self._edges
+            for edge in self._edges:
+                if edge._d1 == data1 and edge._d2 == data2:
+                    weight = edge.weight
+                else:
+                    weight = None
+            return Edge(data1, data2, weight) in self._edges
 
     def _get_node(self, data):
         for node in self._nodes:
