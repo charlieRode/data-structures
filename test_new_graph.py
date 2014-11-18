@@ -22,10 +22,10 @@ def test_add_edge():
     g.add_node(1)
     g.add_edge(3, 2)
     assert len(g.nodes()) == 3
-    assert {3, 2} in g.edges()
+    assert ({3, 2}, 1) in g.edges()
 
 
-def test_delete_edge():
+def test_del_edge():
     g = Graph()
     e1 = Edge('a', 'b')
     e2 = Edge('b', 'c')
@@ -36,17 +36,17 @@ def test_delete_edge():
     g.add_edge('a', 'c')
     for edge in edges:
         assert edge in g._edges
-    g.delete_edge('b', 'c')
+    g.del_edge('b', 'c')
     assert len(g._edges) == 2
     assert e2 not in g._edges
     assert e1 in g._edges and e3 in g._edges
     try:
-        g.delete_edge(1, 2)
+        g.del_edge(1, 2)
     except IndexError:
         assert True
     else:
         assert False
-    g.delete_edge('b', 'a')
+    g.del_edge('b', 'a')
     assert len(g._edges) == 1
 
 
@@ -81,7 +81,7 @@ def test_has_node():
     assert g.has_node('a') is True
     g.add_edge('b', 'c')
     assert g.has_node('b') is True
-    g.delete_edge('b', 'c')
+    g.del_edge('b', 'c')
     assert g.has_node('c') is True
 
 
@@ -153,3 +153,21 @@ def test_bfs():
     g.add_edge('f', 'c')
     g.add_edge('c', 'h')
     assert g.bfs('a') == ['a', 'b', 'd', 'g', 'e', 'f', 'c', 'h']
+
+
+def test_weighted_edges():
+    g = Graph()
+    g.add_edge('a', 'b')
+    g.add_edge('a', 'd')
+    g.add_edge('a', 'g')
+    g.add_edge('b', 'e')
+    g.add_edge('e', 'g')
+    g.add_edge('b', 'f')
+    g.add_edge('f', 'd')
+    g.add_edge('f', 'c')
+    g.add_edge('c', 'h')
+
+    assert g.adjacent('a', 'b') is True
+    assert g.adjacent('a', 'c') is False
+    g.del_edge('a', 'b')
+    assert g.neighbors('a') == ['d', 'g']
